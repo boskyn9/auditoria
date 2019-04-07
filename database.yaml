@@ -1,0 +1,12 @@
+## YAML Template.
+---
+
+driver: "org.mariadb.jdbc.Driver"
+dataBases: 
+    - name: "ipathos_auditoria"
+    - name: "ipathos_auditoria_20190603"
+host: "localhost"
+port: "3306"
+user: "root"
+password: "root"
+sql: "select * from log_auditoria_v2 where id_empresa = ${id_empresa} limit 100"
