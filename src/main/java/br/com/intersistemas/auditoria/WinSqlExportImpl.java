@@ -34,7 +34,7 @@ public class WinSqlExportImpl implements SqlExport {
             db.getDataBases().forEach(dataBase -> {
 
                 try {
-                    String fileName = home + "/auditoria_" + new Date().getTime() + ".html";
+                    String fileName = home + "\\auditoria_" + new Date().getTime() + ".html";
                     File file = new File(fileName);
 
                     String command = String.format("mysql -h %s -u %s -p%s -D %s -H -e \" %s \" > %s", db.getHost(), db.getUser(), db.getPassword(), dataBase.getName(), db.getSql(params), fileName);
@@ -42,7 +42,8 @@ public class WinSqlExportImpl implements SqlExport {
                     System.out.println(command);
 
                     ProcessBuilder processBuilder = new ProcessBuilder();
-                    processBuilder.command(command);
+                    processBuilder.command("cmd.exe", "/C", command); 
+                   // processBuilder.command(command);
                     Process process = processBuilder.start();
                     process.waitFor();
 
