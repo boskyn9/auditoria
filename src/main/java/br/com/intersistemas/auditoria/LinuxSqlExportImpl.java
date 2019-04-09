@@ -27,7 +27,7 @@ public class LinuxSqlExportImpl implements SqlExport {
     public List<File> export(Map params) {
         List<File> files = new ArrayList<>();
 
-        try {
+       /* try {
             String home = System.getProperty("user.home");
             ConfigDataBase db = ReaderYAML.read();
 
@@ -61,7 +61,7 @@ public class LinuxSqlExportImpl implements SqlExport {
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LinuxSqlExportImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         return files;
     }
 }
