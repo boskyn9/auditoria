@@ -6,7 +6,6 @@
 package br.com.intersistemas.auditoria.util;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -14,21 +13,11 @@ import java.util.Map;
  */
 public class ConfigDataBase {
 
-    private String driver;
     private List<DataBase> dataBases;
     private String host;
     private String port;
     private String user;
     private String password;
-    private String sql;
-
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
 
     public List<DataBase> getDataBases() {
         return dataBases;
@@ -70,18 +59,9 @@ public class ConfigDataBase {
         this.password = password;
     }
 
-    public String getSql(Map<String, String> params) {
-        if(params == null)
-            return sql;
-        
-        params.forEach((key, value) -> {
-            sql = sql.replace(key, value);
-        });
-        return sql;
-    }
-
-    public void setSql(String sql) {
-        this.sql = sql;
+    @Override
+    public String toString() {
+        return "ConfigDataBase{" + "dataBases=" + dataBases + ", host=" + host + ", port=" + port + ", user=" + user + ", password=" + password + '}';
     }
 
 }
