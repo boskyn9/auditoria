@@ -21,4 +21,8 @@ public class DataBase {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "DataBase{" + "name=" + name + '}';
+    }
 }
