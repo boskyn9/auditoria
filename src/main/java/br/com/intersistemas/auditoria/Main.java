@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.intersistemas.auditoria;
 
 import br.com.intersistemas.auditoria.gui.GuiMain;
@@ -13,15 +12,16 @@ import br.com.intersistemas.auditoria.gui.GuiMain;
  * @author bosco
  */
 public class Main {
-    
+
     private static GuiMain gui;
 
-    public static GuiMain getPrincicalGui(){
-        if(gui == null)
+    public static GuiMain getPrincicalGui() {
+        if (gui == null) {
             gui = new GuiMain();
+        }
         return gui;
     }
-    
+
     /**
      * @param args the command line arguments
      */
