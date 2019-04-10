@@ -2,11 +2,19 @@
 ---
 
 driver: "org.mariadb.jdbc.Driver"
-dataBases: 
+sql: "meu_sql"
+hosts:
+-   dataBases: 
     - name: "ipathos_auditoria"
-    - name: "ipathos_auditoria_20190603"
-host: "localhost"
-port: "3306"
-user: "root"
-password: "root"
-sql: "select * from log_auditoria_v2 where id_empresa = ${id_empresa} limit 100"
+    - name: "ipathos_auditoria_20190218"
+    host: "192.168.1.28"
+    port: "3306"
+    user: "app"
+    password: "app"
+-   dataBases:
+    - name: "ipathos_auditoria"
+    host: "192.168.1.31"
+    port: "3306"
+    user: "root"
+    password: "root"
+        

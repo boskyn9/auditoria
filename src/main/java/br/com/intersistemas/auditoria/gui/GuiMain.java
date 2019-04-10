@@ -9,8 +9,10 @@ import br.com.intersistemas.auditoria.LinuxSqlExportImpl;
 import br.com.intersistemas.auditoria.SqlExport;
 import br.com.intersistemas.auditoria.WinSqlExportImpl;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class GuiMain extends javax.swing.JFrame {
      */
     public GuiMain() {
         initComponents();
-      
+
     }
 
     /**
@@ -187,24 +189,33 @@ public class GuiMain extends javax.swing.JFrame {
 
         if (osName.toLowerCase().contains("linux")) {
             export = new LinuxSqlExportImpl();
-        } else if (osName.toLowerCase().contains("windows")) { /**@@author: MATHEUS */
+        } else if (osName.toLowerCase().contains("windows")) {
+            /**
+             * @@author: MATHEUS
+             */
             export = new WinSqlExportImpl();//TODO fazer a implementação do win
-            
+
         }
 
         if (export == null) {
             JOptionPane.showMessageDialog(this, "Elemento de exportação não definido para este sistema operacional");
             System.exit(0);
         }
-        
+
         Map<String, String> params = new HashMap();
-        
-        String numeroAspas = "'"+exameField.getText()+"'"; // **@brief Variável necessária para buscar pelo número do exame
+
+        String numeroAspas = "'" + exameField.getText() + "'"; // **@brief Variável necessária para buscar pelo número do exame
         params.put("${id_empresa}", empresaField.getText());
         params.put("${id_exame}", numeroAspas);
-        
-        List<File> files = export.export(params);
-        
+
+        List<File> files = new ArrayList();
+
+        try {
+            files = export.export(params);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "O arquivo datadabse.yaml não existe.");
+        }
+
         files.forEach(file -> {
             try {
                 logField.append(file.getAbsolutePath() + "\n");

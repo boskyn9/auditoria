@@ -6,6 +6,7 @@
 package br.com.intersistemas.auditoria;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +16,5 @@ import java.util.Map;
  */
 public interface SqlExport {
 
-    public List<File> export(Map params);
+    public List<File> export(Map params) throws FileNotFoundException;
 }
