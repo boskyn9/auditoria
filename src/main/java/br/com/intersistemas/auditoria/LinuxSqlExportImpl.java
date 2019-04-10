@@ -37,7 +37,7 @@ public List<File> export(Map params) {
 
                 dataBases.forEach(db -> {
                     try {
-                        String fileName = home + "\\auditoria_" +  +new Date().getTime() + ".html";
+                        String fileName = home + "/auditoria_" +  +new Date().getTime() + ".html";
                         File file = new File(fileName);
 
                         String command = String.format("/usr/bin/mysql -h %s -u %s -p%s -D %s -H -e \" %s \" > %s", hostConfig.getHost(), hostConfig.getUser(),hostConfig.getPassword(), db.getName(), dbReader.getSql(params), fileName);
