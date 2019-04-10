@@ -6,6 +6,8 @@
 package br.com.intersistemas.auditoria;
 
 import br.com.intersistemas.auditoria.util.ConfigDataBase;
+import br.com.intersistemas.auditoria.util.ConfigMysqlConnection;
+import br.com.intersistemas.auditoria.util.DataBase;
 import br.com.intersistemas.auditoria.util.ReaderYAML;
 import java.io.File;
 import java.io.FileNotFoundException;
