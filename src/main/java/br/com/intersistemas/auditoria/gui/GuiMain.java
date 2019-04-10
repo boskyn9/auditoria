@@ -184,6 +184,8 @@ public class GuiMain extends javax.swing.JFrame {
         //Conectar ao banco de dados
 //            Connector conn = Connector.getInstance();
 //            conn.auditori1();
+        String numeroExame = exameField.getText();
+        String empresaID = empresaField.getText();
         String osName = System.getProperty("os.name");
         SqlExport export = null;
 
@@ -211,7 +213,7 @@ public class GuiMain extends javax.swing.JFrame {
         List<File> files = new ArrayList();
 
         try {
-            files = export.export(params);
+            files = export.export(params, numeroExame, empresaID);
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "O arquivo datadabse.yaml não existe.");
         }
