@@ -23,45 +23,51 @@ import java.util.logging.Logger;
  */
 public class LinuxSqlExportImpl implements SqlExport {
 
-    @Override
-    public List<File> export(Map params) {
+
+public List<File> export(Map params) {
         List<File> files = new ArrayList<>();
 
-       /* try {
+        try {
             String home = System.getProperty("user.home");
-            ConfigDataBase db = ReaderYAML.read();
+            ConfigMysqlConnection dbReader = ReaderYAML.read();
+            List<ConfigDataBase> hosts = dbReader.getHosts();
+            hosts.forEach(hostConfig -> {
 
-            db.getDataBases().forEach(dataBase -> {
+                List<DataBase> dataBases = hostConfig.getDataBases();
 
-                try {
-                    String fileName = home + "/auditoria_" + new Date().getTime() + ".html";
-                    File file = new File(fileName);
+                dataBases.forEach(db -> {
+                    try {
+                        String fileName = home + "\\auditoria_" +  +new Date().getTime() + ".html";
+                        File file = new File(fileName);
 
-                    String command = String.format("/usr/bin/mysql -h %s -u %s -p%s -D %s -H -e \" %s \" > %s", db.getHost(), db.getUser(), db.getPassword(), dataBase.getName(), db.getSql(params), fileName);
+                        String command = String.format("/usr/bin/mysql -h %s -u %s -p%s -D %s -H -e \" %s \" > %s", hostConfig.getHost(), hostConfig.getUser(),hostConfig.getPassword(), db.getName(), dbReader.getSql(params), fileName);
 
-                    System.out.println(command);
+                        System.out.println(command);
 
-                    ProcessBuilder processBuilder = new ProcessBuilder();
-                    processBuilder.command("bash", "-c", command);
-                    Process process = processBuilder.start();
-                    process.waitFor();
+                        ProcessBuilder processBuilder = new ProcessBuilder();
+                       processBuilder.command("bash", "-c", command);
+                        Process process = processBuilder.start();
+                        process.waitFor();
+                        System.out.println("Ponto após executar o mysql");
+                        System.out.println("Tamanho do arquivo:" + file.length());
+                        if (file.length() > 0) {
+                            System.out.println("Adiciona na Lista de arquivos");
+                            files.add(file);
+                        } else {
+                            file.delete();
+                            System.out.println("Deleta o arquivo");
+                        }
 
-                    if (file.length() > 0) {
-                        files.add(file);
-                    } else {
-                        System.out.println("O arquivo " + file.getAbsolutePath() + " será apagado por falta de conteúdo.");
-                        file.delete();
+                    } catch (IOException | InterruptedException ex) {
+                        Logger.getLogger(LinuxSqlExportImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
-                } catch (IOException | InterruptedException ex) {
-                    Logger.getLogger(LinuxSqlExportImpl.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                });
 
             });
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LinuxSqlExportImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         return files;
     }
 }
