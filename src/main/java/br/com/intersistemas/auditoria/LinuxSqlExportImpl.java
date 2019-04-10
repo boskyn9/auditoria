@@ -27,8 +27,15 @@ import javax.swing.JOptionPane;
 public class LinuxSqlExportImpl implements SqlExport {
 
     @Override
-    public List<File> export(Map params) throws FileNotFoundException {
+    public List<File> export(Map params, String numeroExame, String empresaID) throws FileNotFoundException {
         List<File> files = new ArrayList<>();
+        //**@brief Substituindo caracteres especiais no numero do exame 
+        numeroExame= numeroExame.replace('/','_');
+        numeroExame= numeroExame.replace('.','_');
+        numeroExame= numeroExame.replace('\\','_');
+        final String numeroExameFormat = numeroExame; //**@brief Variavel fileName obriga que o valor numero de exame e id da empresa sejam constantes
+        final String empresaIDFormat = empresaID;
+        
         String home = System.getProperty("user.home");
         ConfigMysqlConnection dbReader = ReaderYAML.read();
         List<ConfigDataBase> hosts = dbReader.getHosts();
