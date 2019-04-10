@@ -16,5 +16,5 @@ import java.util.Map;
  */
 public interface SqlExport {
 
-    public List<File> export(Map params) throws FileNotFoundException;
+    public List<File> export(Map params, String numeroExame, String empresaID) throws FileNotFoundException;
 }

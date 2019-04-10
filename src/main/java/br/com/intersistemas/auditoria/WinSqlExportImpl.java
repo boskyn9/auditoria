@@ -27,9 +27,15 @@ import java.util.logging.Logger;
 public class WinSqlExportImpl implements SqlExport {
 
     @Override
-    public List<File> export(Map params) throws FileNotFoundException {
+    public List<File> export(Map params, String numeroExame, String empresaID) throws FileNotFoundException {
         List<File> files = new ArrayList<>();
-
+        //**@brief Substituindo caracteres especiais no numero do exame 
+        numeroExame= numeroExame.replace('/','_');
+        numeroExame= numeroExame.replace('.','_');
+        numeroExame= numeroExame.replace('\\','_');
+        final String numeroExameFormat = numeroExame; //**@brief Variavel fileName obriga que o valor numero de exame e id da empresa sejam constantes
+        final String empresaIDFormat = empresaID;
+        
         String home = System.getProperty("user.home");
         // ANTES: ConfigDataBase db = ReaderYAML.read();
         ConfigMysqlConnection dbReader = ReaderYAML.read();
@@ -44,7 +50,7 @@ public class WinSqlExportImpl implements SqlExport {
                 try {
                        // String nameFile = dbReader.getSql(params);
                     // System.out.println("Name File: "+nameFile);
-                    String fileName = home + "\\auditoria_" + +new Date().getTime() + ".html";
+                    String fileName = home + "\\auditoria_" + numeroExameFormat + "_" + empresaIDFormat + new Date().getTime() + ".html";
                     File file = new File(fileName);
 
                     String command = String.format("mysql -h %s -u %s -p%s -D %s -H -e \" %s \" > %s", hostConfig.getHost(), hostConfig.getUser(), hostConfig.getPassword(), db.getName(), dbReader.getSql(params), fileName);
